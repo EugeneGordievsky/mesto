@@ -6,3 +6,15 @@
   grid-template-columns: repeat(auto-fit, 282px);
   gap: 20px 18px;
 }
+
+@media screen and (max-width: 900px) {
+  .elements {
+    width: 582px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .elements {
+    width: 282px;
+  }
+}
