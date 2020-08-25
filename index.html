@@ -9,27 +9,25 @@
 <body>
   <div class="page">
     <header class="header">
-      <img src="images/logo.svg" class="header__logo">
+      <img src="images/logo.svg" class="header__logo" alt="Логотип Mesto Russia">
     </header>
     <main class="content">
       <section class="profile">
-        <img src="images/avatar.jpg" class="profile__avatar">
+        <img src="images/avatar.jpg" class="profile__avatar" alt="Аватар профиля">
         <div class="profile__info">
           <h1 class="profile__name">
             Жак-Ив Кусто
           </h1>
           <button class="profile__edit-button"></button>
-          <p class="profile__work">
+          <p class="profile__job">
             Исследователь океана
           </p>
-
         </div>
-
-        <button class="profile__add-button"></button>
+        <button class="add-button"></button>
       </section>
       <section class="elements">
         <div class="element">
-          <img src="images/karachaevsk.png" class="element__image">
+          <img src="images/karachaevsk.png" class="element__image" alt="Старое кирпичное здание и лес">
           <div class="element__info">
           <h2 class="element__header">
             Карачаевск
@@ -38,7 +36,7 @@
           </div>
         </div>
         <div class="element">
-          <img src="images/gora-elbrus.png" class="element__image">
+          <img src="images/gora-elbrus.png" class="element__image" alt="Гора и закат">
           <div class="element__info">
           <h2 class="element__header">
             Гора Эльбрус
@@ -47,7 +45,7 @@
           </div>
         </div>
         <div class="element">
-          <img src="images/dombay.png" class="element__image">
+          <img src="images/dombay.png" class="element__image" alt="Лес и заснеженные горы">
           <div class="element__info">
           <h2 class="element__header">
             Домбай
@@ -56,7 +54,7 @@
           </div>
         </div>
         <div class="element">
-          <img src="images/gora-elbrus.png" class="element__image">
+          <img src="images/gora-elbrus.png" class="element__image" alt="Гора и закат">
           <div class="element__info">
           <h2 class="element__header">
             Гора Эльбрус
@@ -65,7 +63,7 @@
           </div>
         </div>
         <div class="element">
-          <img src="images/dombay.png" class="element__image">
+          <img src="images/dombay.png" class="element__image" alt="Лес и заснеженные горы">
           <div class="element__info">
           <h2 class="element__header">
             Домбай
@@ -74,7 +72,7 @@
           </div>
         </div>
         <div class="element">
-          <img src="images/karachaevsk.png" class="element__image">
+          <img src="images/karachaevsk.png" class="element__image" alt="Старое кирпичное здание и лес">
           <div class="element__info">
             <h2 class="element__header">
               Карачаево-Черкесия
@@ -83,10 +81,24 @@
           </div>
         </div>
       </section>
+      <section class="edit-form">
+        <div class="popup">
+          <div class="popup__container">
+            <button class="popup__close-button"></button>
+            <h3 class="popup__header">
+              Редактировать профиль
+            </h3>
+            <input type="text" placeholder="Введите Ваше имя" class="popup__enter-name">
+            <input type="text" placeholder="Введите Вашу профессию" class="popup__enter-job">
+            <button class="popup__save-button">Сохранить</button>
+          </div>
+        </div>
+      </section>
     </main>
     <footer class="footer">
       <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
     </footer>
   </div>
+  <script src="pages/index.js"></script>
 </body>
 </html>
