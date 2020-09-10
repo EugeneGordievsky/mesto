@@ -22,72 +22,38 @@
         <button class="add-button" type="button"></button>
       </section>
       <section class="elements">
-        <div class="element">
-          <img src="images/karachaevsk.png" class="element__image" alt="Старое кирпичное здание и лес">
-          <div class="element__info">
-            <h2 class="element__header">
-              Карачаевск
-            </h2>
-            <button class="element__like" type="button"></button>
-          </div>
-        </div>
-        <div class="element">
-          <img src="images/gora-elbrus.png" class="element__image" alt="Гора и закат">
-          <div class="element__info">
-            <h2 class="element__header">
-              Гора Эльбрус
-            </h2>
-            <button class="element__like" type="button"></button>
-          </div>
-        </div>
-        <div class="element">
-          <img src="images/dombay.png" class="element__image" alt="Лес и заснеженные горы">
-          <div class="element__info">
-            <h2 class="element__header">
-              Домбай
-            </h2>
-            <button class="element__like" type="button"></button>
-          </div>
-        </div>
-        <div class="element">
-          <img src="images/gora-elbrus.png" class="element__image" alt="Гора и закат">
-          <div class="element__info">
-            <h2 class="element__header">
-              Гора Эльбрус
-            </h2>
-            <button class="element__like" type="button"></button>
-          </div>
-        </div>
-        <div class="element">
-          <img src="images/dombay.png" class="element__image" alt="Лес и заснеженные горы">
-          <div class="element__info">
-            <h2 class="element__header">
-              Домбай
-            </h2>
-            <button class="element__like" type="button"></button>
-          </div>
-        </div>
-        <div class="element">
-          <img src="images/karachaevsk.png" class="element__image" alt="Старое кирпичное здание и лес">
-          <div class="element__info">
-            <h2 class="element__header">
-              Карачаево-Черкесия
-            </h2>
-            <button class="element__like" type="button"></button>
-          </div>
-        </div>
       </section>
-      <section class="popup">
+      <section class="popup popup_edit">
         <div class="popup__container">
-          <button class="popup__close-button" type="button"></button>
+          <button class="popup__close-button popup__close-button_edit" type="button"></button>
           <h3 class="popup__header">
             Редактировать профиль
           </h3>
-          <form class="popup__form" name="edit-form" action="index.html" method="GET">
-            <input type="text" placeholder="Введите Ваше имя" class="popup__input popup__input_name" value=" " name="input-name">
-            <input type="text" placeholder="Введите Вашу профессию" class="popup__input popup__input_job" value=" " name="input-job">
+          <form class="popup__form popup__form_edit" name="edit-form" action="index.html" method="GET">
+            <input type="text" placeholder="Введите Ваше имя" class="popup__input popup__input_name" name="input-name">
+            <input type="text" placeholder="Введите Вашу профессию" class="popup__input popup__input_job" name="input-job">
             <button type="submit" class="popup__save-button">Сохранить</button>
           </form>
+        </div>
+      </section>
+      <section class="popup popup_add-card">
+        <div class="popup__container">
+          <button class="popup__close-button popup__close-button_add" type="button"></button>
+          <h3 class="popup__header">
+            Новое место
+          </h3>
+          <form class="popup__form popup__form_add-card" name="card-form" action="index.html" method="GET">
+            <input type="text" placeholder="Название" class="popup__input popup__input_title" name="input-title">
+            <input type="text" placeholder="Ссылка на картинку" class="popup__input popup__input_src" name="input-src">
+            <button type="submit" class="popup__save-button">Создать</button>
+          </form>
+        </div>
+      </section>
+      <section class="popup popup_full-image">
+        <div class="popup__card">
+          <button class="popup__close-button popup__close-button_image" type="button"></button>
+          <img src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg" class="popup__card-image" alt="Картинка">
+          <h2 class="popup__card-title">Архыз</h2>
         </div>
       </section>
     </main>
@@ -95,6 +61,16 @@
       <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
     </footer>
   </div>
+  <template id="card">
+    <div class="element">
+      <button type="button" class="element__delete-button"></button>
+      <img class="element__image" alt="Картинка">
+      <div class="element__info">
+        <h2 class="element__title"></h2>
+        <button class="element__like" type="button"></button>
+      </div>
+    </div>
+  </template>
   <script src="scripts/index.js"></script>
 </body>
 </html>
