@@ -1,4 +1,5 @@
 .popup {
+  font-family: "Inter", "Arial", sans-serif;
   visibility: hidden;
   opacity: 0;
   transition: visibility 0s, opacity .2s linear;
