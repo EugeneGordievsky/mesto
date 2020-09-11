@@ -7,7 +7,6 @@ const addButton = document.querySelector(".add-button");
 const closeEditButton = document.querySelector(".popup__close-button_edit");
 const closeAddButton = document.querySelector(".popup__close-button_add");
 const closeImageButton = document.querySelector(".popup__close-button_image");
-const elementImage = document.querySelector(".element__image");
 const popupEnterName = document.querySelector(".popup__input_name");
 const popupEnterJob = document.querySelector(".popup__input_job");
 const popupEditForm = document.querySelector(".popup__form_edit");
@@ -17,6 +16,8 @@ const profileJob = document.querySelector(".profile__job");
 const cardElements = document.querySelector(".elements");
 const inputTitle = document.querySelector(".popup__input_title");
 const inputSrc = document.querySelector(".popup__input_src");
+const fullImageSrc = document.querySelector(".popup__card-image");
+const fullImageTitle = document.querySelector(".popup__card-title");
 const cardTemplate = document.querySelector("#card").content;
 const initialCards = [
   {
@@ -51,6 +52,12 @@ initialCards.forEach(function(item) {
 
   initCard.querySelector(".element__title").textContent = item.name;
   initCard.querySelector(".element__image").src = item.link;
+  initCard.querySelector(".element__image").addEventListener("click", function(evt) {
+    fullImageTitle.textContent = evt.target.nextElementSibling.firstElementChild.textContent;
+    fullImageSrc.src = evt.target.src;
+
+    popupFullImage.classList.add("popup_opened");
+  });
   initCard.querySelector(".element__like").addEventListener("click", function(evt) {
     evt.target.classList.toggle("element__like_active");
   });
@@ -91,8 +98,14 @@ function addCard(evt) {
 
   const cardElement = cardTemplate.cloneNode(true);
 
-  cardElement.querySelector(".element__header").textContent = inputTitle.value;
+  cardElement.querySelector(".element__title").textContent = inputTitle.value;
   cardElement.querySelector(".element__image").src = inputSrc.value;
+  cardElement.querySelector(".element__image").addEventListener("click", function(evt) {
+    fullImageTitle.textContent = evt.target.nextElementSibling.firstElementChild.textContent;
+    fullImageSrc.src = evt.target.src;
+
+    popupFullImage.classList.add("popup_opened");
+  });
   cardElement.querySelector(".element__like").addEventListener("click", function(evt) {
     evt.target.classList.toggle("element__like_active");
   });
@@ -127,5 +140,3 @@ popupEditForm.addEventListener("submit", changeProfileInfo);
 popupAddForm.addEventListener("submit", addCard);
 
 closeImageButton.addEventListener("click", popupFullImageOpenedClosed);
-
-elementImage.addEventListener("click", popupFullImageOpenedClosed);

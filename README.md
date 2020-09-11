@@ -12,6 +12,10 @@
 * Медиазапросы
 * Адаптивная верстка
 * Java Script
+* Работа с DOM
+* Работа с Template- элементами
+
+Upd: Реализована функция добавления собственных карточек и удаления фото.
 
 Проект создан по [макету](https://www.figma.com/file/StZjf8HnoeLdiXS7dYrLAh/JavaScript.-Sprint-4) с использованием редактора
 [Figma](https://www.figma.com).
