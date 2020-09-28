@@ -47,10 +47,31 @@ const initialCards = [
 
 function popupOpen(popup) {
   popup.classList.add("popup_opened");
+  popup.addEventListener("click", function(evt) {
+    if (evt.target.classList.contains("popup")) {
+      popupClose(popup);
+    }
+  });
+  document.addEventListener("keydown", function(evt) {
+    if (evt.key === "Escape") {
+      popupClose(popup);
+    }
+  });
 };
 
 function popupClose(popup) {
   popup.classList.remove("popup_opened");
+  popup.removeEventListener("click", function(evt) {
+    if (evt.target.classList.contains("popup")) {
+      popupClose(popup);
+    }
+  });
+  document.removeEventListener("keydown", function(evt) {
+    if (evt.key === "Escape") {
+      popupClose(popup);
+    }
+  });
+
 };
 
 function changeProfileInfo(evt) {
@@ -107,6 +128,7 @@ addButton.addEventListener("click", function() {
   popupOpen(popupAdd);
 });
 closeAddButton.addEventListener("click", function(){popupClose(popupAdd)});
+
 
 popupEditForm.addEventListener("submit", changeProfileInfo);
 
