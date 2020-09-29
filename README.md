@@ -16,6 +16,7 @@
 * Работа с Template- элементами
 
 Upd: Реализована функция добавления собственных карточек и удаления фото.
+Upd2: Реализована функция валидации форм.
 
 Проект создан по [макету](https://www.figma.com/file/StZjf8HnoeLdiXS7dYrLAh/JavaScript.-Sprint-4) с использованием редактора
 [Figma](https://www.figma.com).

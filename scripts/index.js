@@ -54,9 +54,11 @@ function popupOpen(popup) {
   });
   document.addEventListener("keydown", function(evt) {
     if (evt.key === "Escape") {
+      evt.preventDefault();
       popupClose(popup);
     }
   });
+  enableValidation();
 };
 
 function popupClose(popup) {
@@ -71,7 +73,18 @@ function popupClose(popup) {
       popupClose(popup);
     }
   });
+  clearError();
+};
 
+function clearError() {
+  const errors = Array.from(document.querySelectorAll(".popup__input_error"));
+  const inputs = Array.from(document.querySelectorAll(".popup__input"));
+  errors.forEach(function(error) {
+    error.textContent = "";
+  });
+  inputs.forEach(function(input) {
+    input.classList.remove("popup__input_type_error");
+  });
 };
 
 function changeProfileInfo(evt) {
@@ -97,7 +110,7 @@ function addCard(title, src) {
     fullImageSrc.src = src;
 
     popupOpen(popupFullImage);
-  })
+  });
   cardElement.querySelector(".element__like").addEventListener("click", function(evt) {
     evt.target.classList.toggle("element__like_active");
   });
@@ -127,8 +140,8 @@ addButton.addEventListener("click", function() {
 
   popupOpen(popupAdd);
 });
-closeAddButton.addEventListener("click", function(){popupClose(popupAdd)});
 
+closeAddButton.addEventListener("click", function(){popupClose(popupAdd)});
 
 popupEditForm.addEventListener("submit", changeProfileInfo);
 
