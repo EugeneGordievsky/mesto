@@ -21,7 +21,8 @@
         </div>
         <button class="add-button" type="button"></button>
       </section>
-      <section class="elements">
+      <section class="cards">
+        <ul class ="elements"></ul>
       </section>
     </main>
     <footer class="footer">
@@ -29,14 +30,14 @@
     </footer>
   </div>
   <template id="card">
-    <div class="element">
+    <li class="element">
       <button type="button" class="element__delete-button"></button>
       <img class="element__image" alt="Картинка">
       <div class="element__info">
         <h2 class="element__title"></h2>
         <button class="element__like" type="button"></button>
       </div>
-    </div>
+    </li>
   </template>
   <section class="popup popup_edit">
     <div class="popup__container">

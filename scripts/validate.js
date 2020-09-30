@@ -12,6 +12,17 @@ function inputHideError(formElement, inputElement, allClasses) {
   inputErrorText.textContent = "";
 };
 
+function clearError() {
+  const errors = Array.from(document.querySelectorAll(".popup__input_error"));
+  const inputs = Array.from(document.querySelectorAll(".popup__input"));
+  errors.forEach(function(error) {
+    error.textContent = "";
+  });
+  inputs.forEach(function(input) {
+    input.classList.remove("popup__input_type_error");
+  });
+};
+
 function isValid(formElement, inputElement, allClasses) {
   if (!inputElement.validity.valid) {
     inputShowError(formElement, inputElement, inputElement.validationMessage, allClasses);
@@ -44,7 +55,7 @@ function setEventListeners(formElement, allClasses) {
       toggleButtonState(inputList, buttonElement, allClasses);
     });
   });
-}
+};
 
 function enableValidation(allClasses) {
   const formList = Array.from(document.querySelectorAll(allClasses.formSelector));
@@ -54,4 +65,13 @@ function enableValidation(allClasses) {
     });
     setEventListeners(formElement, allClasses);
   });
-}
+};
+
+enableValidation({
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__save-button',
+  inactiveButtonClass: 'popup__save-button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__input_error_active'
+});
