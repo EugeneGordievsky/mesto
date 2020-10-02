@@ -60,7 +60,7 @@ function popupClose(popup) {
   popup.removeEventListener("click", function(evt) {
     closeOnOverlay(evt, popup);
   });
-  document.removeEventListener("keydown", function(evt) {
+  document.removeEventListener("keyup", function(evt) {
     closeOnEsc(evt, popup);
   });
   clearError();
