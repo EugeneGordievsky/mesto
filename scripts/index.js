@@ -1,3 +1,6 @@
+import Card from "./Card.js";
+import FormValidator from "./FormValidator.js";
+export {popupFullImage, fullImageSrc, fullImageTitle, closeImageButton, popupClose, popupOpen};
 const editButton = document.querySelector(".profile__edit-button");
 const popupEdit = document.querySelector(".popup_edit");
 const popupAdd = document.querySelector(".popup_add-card");
@@ -17,7 +20,6 @@ const inputTitle = document.querySelector(".popup__input_title");
 const inputSrc = document.querySelector(".popup__input_src");
 const fullImageSrc = document.querySelector(".popup__card-image");
 const fullImageTitle = document.querySelector(".popup__card-title");
-const cardTemplate = document.querySelector("#card").content;
 const initialCards = [
   {
       name: 'Архыз',
@@ -44,6 +46,17 @@ const initialCards = [
       link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ];
+
+function clearError() {
+  const errors = Array.from(document.querySelectorAll(".popup__input_error"));
+  const inputs = Array.from(document.querySelectorAll(".popup__input"));
+  errors.forEach(function(error) {
+    error.textContent = "";
+  });
+  inputs.forEach(function(input) {
+    input.classList.remove("popup__input_type_error");
+  });
+};
 
 function popupOpen(popup) {
   popup.classList.add("popup_opened");
@@ -91,35 +104,22 @@ function changeProfileInfo(evt) {
   popupClose(popupEdit);
 };
 
-function createCard(title, src) {
-  const cardElement = cardTemplate.cloneNode(true);
-  const cardImage = cardElement.querySelector(".element__image");
-
-  cardElement.querySelector(".element__title").textContent = title;
-  cardImage.src = src;
-  cardImage.addEventListener("click", function(evt) {
-    fullImageTitle.textContent = title;
-    fullImageSrc.src = src;
-
-    popupOpen(popupFullImage);
-  });
-  cardElement.querySelector(".element__like").addEventListener("click", function(evt) {
-    evt.target.classList.toggle("element__like_active");
-  });
-  cardElement.querySelector(".element__delete-button").addEventListener("click", function(evt) {
-    const element = evt.target.closest(".element");
-    element.remove();
-  });
-  return cardElement;
-};
-
 function addCard(container, element) {
   container.prepend(element);
 };
 
-initialCards.forEach(function(item) {
-  addCard(listElements, createCard(item.name, item.link));
-});
+function addNewCard(data) {
+  const newCard = new Card("#card", data);
+  const newCardElement = newCard.generateCard();
+  addCard(listElements, newCardElement);
+}
+
+function valid(allClasses, formValid) {
+  const validForm = new FormValidator(allClasses, formValid);
+  validForm.enableValidation();
+};
+
+initialCards.forEach((item) => addNewCard(item));
 
 editButton.addEventListener("click", function() {
   popupEnterName.value = profileName.textContent;
@@ -142,8 +142,28 @@ popupEditForm.addEventListener("submit", changeProfileInfo);
 
 popupAddForm.addEventListener("submit", function(evt) {
   evt.preventDefault();
-  addCard(listElements, createCard(inputTitle.value, inputSrc.value));
+
+  addNewCard({
+    name: inputTitle.value,
+    link: inputSrc.value,
+  });
   popupClose(popupAdd);
 });
 
 closeImageButton.addEventListener("click", function(){popupClose(popupFullImage)});
+
+valid({
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup__save-button",
+  inactiveButtonClass: "popup__save-button_disabled",
+  inputErrorClass: "popup__input_type_error",
+  errorClass: "popup__input_error_active"
+  }, ".popup__form_edit");
+
+valid({
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup__save-button",
+  inactiveButtonClass: "popup__save-button_disabled",
+  inputErrorClass: "popup__input_type_error",
+  errorClass: "popup__input_error_active"
+  }, ".popup__form_add-card");
