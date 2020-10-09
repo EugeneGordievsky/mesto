@@ -1,6 +1,6 @@
 import Card from "./Card.js";
 import FormValidator from "./FormValidator.js";
-export {popupFullImage, fullImageSrc, fullImageTitle, closeImageButton, popupClose, popupOpen};
+export {popupFullImage, fullImageSrc, fullImageTitle, closeImageButton};
 const editButton = document.querySelector(".profile__edit-button");
 const popupEdit = document.querySelector(".popup_edit");
 const popupAdd = document.querySelector(".popup_add-card");
@@ -20,6 +20,13 @@ const inputTitle = document.querySelector(".popup__input_title");
 const inputSrc = document.querySelector(".popup__input_src");
 const fullImageSrc = document.querySelector(".popup__card-image");
 const fullImageTitle = document.querySelector(".popup__card-title");
+const formClasses = {
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup__save-button",
+  inactiveButtonClass: "popup__save-button_disabled",
+  inputErrorClass: "popup__input_type_error",
+  errorClass: "popup__input_error_active"
+  };
 const initialCards = [
   {
       name: 'Архыз',
@@ -60,35 +67,29 @@ function clearError() {
 
 function popupOpen(popup) {
   popup.classList.add("popup_opened");
-  popup.addEventListener("click", function(evt) {
-    closeOnOverlay(evt, popup);
-  });
-  document.addEventListener("keyup", function(evt) {
-    closeOnEsc(evt, popup);
-  });
+  popup.addEventListener("click", closeOnOverlay);
+  document.addEventListener("keyup", closeOnEsc);
 };
 
 function popupClose(popup) {
   popup.classList.remove("popup_opened");
-  popup.removeEventListener("click", function(evt) {
-    closeOnOverlay(evt, popup);
-  });
-  document.removeEventListener("keyup", function(evt) {
-    closeOnEsc(evt, popup);
-  });
+  popup.removeEventListener("click", closeOnOverlay);
+  document.removeEventListener("keyup", closeOnEsc);
   clearError();
 };
 
-function closeOnEsc(evt, popup) {
+function closeOnEsc(evt) {
+  const openPopup = document.querySelector(".popup_opened");
   if (evt.key === "Escape") {
     evt.preventDefault();
-    popupClose(popup);
+    popupClose(openPopup);
   };
 };
 
-function closeOnOverlay(evt, popup) {
+function closeOnOverlay(evt) {
+  const openPopup = document.querySelector(".popup_opened");
   if (evt.target.classList.contains("popup")) {
-    popupClose(popup);
+    popupClose(openPopup);
   };
 };
 
@@ -152,18 +153,6 @@ popupAddForm.addEventListener("submit", function(evt) {
 
 closeImageButton.addEventListener("click", function(){popupClose(popupFullImage)});
 
-valid({
-  inputSelector: ".popup__input",
-  submitButtonSelector: ".popup__save-button",
-  inactiveButtonClass: "popup__save-button_disabled",
-  inputErrorClass: "popup__input_type_error",
-  errorClass: "popup__input_error_active"
-  }, ".popup__form_edit");
+valid(formClasses, popupEditForm);
 
-valid({
-  inputSelector: ".popup__input",
-  submitButtonSelector: ".popup__save-button",
-  inactiveButtonClass: "popup__save-button_disabled",
-  inputErrorClass: "popup__input_type_error",
-  errorClass: "popup__input_error_active"
-  }, ".popup__form_add-card");
+valid(formClasses, popupAddForm);

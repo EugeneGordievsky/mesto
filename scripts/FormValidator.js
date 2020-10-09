@@ -9,7 +9,7 @@ export default class FormValidator {
   };
 
   _getForm() {
-    const form = document.querySelector(this._validForm);
+    const form = this._validForm;
     return form;
   };
 
