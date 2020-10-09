@@ -28,8 +28,8 @@ export default class Card {
     fullImageSrc.src = this._link;
 
     popupFullImage.classList.add("popup_opened");
-    document.addEventListener("keyup", this._closeOnEsc);
-    popupFullImage.addEventListener("click", this._closeOnOverlay);
+    document.addEventListener("keyup", (evt) => this._closeOnEsc(evt));
+    popupFullImage.addEventListener("click", (evt) => this._closeOnOverlay(evt));
   };
 
   _handleClosePopup() {
@@ -37,15 +37,16 @@ export default class Card {
     fullImageSrc.src = "";
 
     popupFullImage.classList.remove("popup_opened");
-    document.removeEventListener("keyup", this._closeOnEsc);
-    popupFullImage.removeEventListener("click", this._closeOnOverlay);
+    document.removeEventListener("keyup", (evt) => this._closeOnEsc(evt));
+    popupFullImage.removeEventListener("click", (evt) => this._closeOnOverlay(evt));
   };
 
   _closeOnEsc(evt) {
     if (evt.key === "Escape") {
-      this._handleClosePopup()
-    }
-  }
+      evt.preventDefault();
+      this._handleClosePopup();
+    };
+  };
 
   _closeOnOverlay(evt) {
     if(evt.target.classList.contains("popup")) {

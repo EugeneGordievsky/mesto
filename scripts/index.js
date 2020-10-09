@@ -1,6 +1,6 @@
 import Card from "./Card.js";
 import FormValidator from "./FormValidator.js";
-export {popupFullImage, fullImageSrc, fullImageTitle, closeImageButton};
+export {popupFullImage, fullImageSrc, fullImageTitle, closeImageButton, popupOpen, popupClose};
 const editButton = document.querySelector(".profile__edit-button");
 const popupEdit = document.querySelector(".popup_edit");
 const popupAdd = document.querySelector(".popup_add-card");
