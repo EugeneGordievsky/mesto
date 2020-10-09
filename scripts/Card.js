@@ -17,23 +17,11 @@ export default class Card {
     this._setEventListeners();
 
     this._elementImage.src = this._link;
-    this._elementImage.textContent = this._name;
     this._elementImage.alt = this._name;
+    this._element.querySelector(".element__title").textContent = this._name;
 
     return this._element;
   };
-
-  _closeOnEsc(evt) {
-    if (evt.key === "Escape") {
-      this._handleClosePopup();
-    }
-  }
-
-  _closeOnOverlay(evt) {
-    if(evt.target.classList.contains("popup")) {
-      this._handleClosePopup();
-    }
-  }
 
   _handleOpenPopup() {
     fullImageTitle.textContent = this._name;
@@ -53,8 +41,20 @@ export default class Card {
     popupFullImage.removeEventListener("click", this._closeOnOverlay);
   };
 
+  _closeOnEsc(evt) {
+    if (evt.key === "Escape") {
+      this._handleClosePopup()
+    }
+  }
+
+  _closeOnOverlay(evt) {
+    if(evt.target.classList.contains("popup")) {
+      this._handleClosePopup();
+    }
+  }
+
   _setEventListeners() {
-    this._element.querySelector(".element__image").addEventListener("click", () => {
+    this._elementImage.addEventListener("click", () => {
       this._handleOpenPopup();
     });
     closeImageButton.addEventListener("click", () => {
