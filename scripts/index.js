@@ -82,7 +82,7 @@ function closeOnEsc(evt) {
   const openPopup = document.querySelector(".popup_opened");
   if (evt.key === "Escape") {
     evt.preventDefault();
-    popupClose(openPopup);
+    console.log("1");
   };
 };
 

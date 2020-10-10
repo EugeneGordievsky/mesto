@@ -1,4 +1,4 @@
-import {popupFullImage, fullImageSrc, fullImageTitle, closeImageButton} from "./index.js";
+import {popupFullImage, fullImageSrc, fullImageTitle, closeImageButton, popupOpen, popupClose} from "./index.js";
 export default class Card {
   constructor(cardSelector, data) {
     this._cardSelector = cardSelector;
@@ -27,40 +27,19 @@ export default class Card {
     fullImageTitle.textContent = this._name;
     fullImageSrc.src = this._link;
 
-    popupFullImage.classList.add("popup_opened");
-    document.addEventListener("keyup", (evt) => this._closeOnEsc(evt));
-    popupFullImage.addEventListener("click", (evt) => this._closeOnOverlay(evt));
+    popupOpen(popupFullImage);
   };
 
   _handleClosePopup() {
     fullImageTitle.textContent = "";
     fullImageSrc.src = "";
 
-    popupFullImage.classList.remove("popup_opened");
-    document.removeEventListener("keyup", (evt) => this._closeOnEsc(evt));
-    popupFullImage.removeEventListener("click", (evt) => this._closeOnOverlay(evt));
+    popupClose(popupFullImage);
   };
-
-  _closeOnEsc(evt) {
-    if (evt.key === "Escape") {
-      evt.preventDefault();
-      this._handleClosePopup();
-    };
-  };
-
-  _closeOnOverlay(evt) {
-    if(evt.target.classList.contains("popup")) {
-      this._handleClosePopup();
-    }
-  }
 
   _setEventListeners() {
-    this._elementImage.addEventListener("click", () => {
-      this._handleOpenPopup();
-    });
-    closeImageButton.addEventListener("click", () => {
-      this._handleClosePopup();
-    });
+    this._elementImage.addEventListener("click", () => this._handleOpenPopup());
+    closeImageButton.addEventListener("click", () => this._handleClosePopup());
     this._element.querySelector(".element__like").addEventListener("click", function(evt) {
       evt.target.classList.toggle("element__like_active");
     })
