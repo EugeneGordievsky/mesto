@@ -54,17 +54,6 @@ const initialCards = [
   }
 ];
 
-function clearError() {
-  const errors = Array.from(document.querySelectorAll(".popup__input_error"));
-  const inputs = Array.from(document.querySelectorAll(".popup__input"));
-  errors.forEach(function(error) {
-    error.textContent = "";
-  });
-  inputs.forEach(function(input) {
-    input.classList.remove("popup__input_type_error");
-  });
-};
-
 function popupOpen(popup) {
   popup.classList.add("popup_opened");
   popup.addEventListener("click", closeOnOverlay);
@@ -72,10 +61,9 @@ function popupOpen(popup) {
 };
 
 function popupClose(popup) {
-  popup.classList.remove("popup_opened");
   popup.removeEventListener("click", closeOnOverlay);
   document.removeEventListener("keyup", closeOnEsc);
-  clearError();
+  popup.classList.remove("popup_opened");
 };
 
 function closeOnEsc(evt) {
@@ -115,17 +103,18 @@ function addNewCard(data) {
   addCard(listElements, newCardElement);
 }
 
-function valid(allClasses, formValid) {
-  const validForm = new FormValidator(allClasses, formValid);
-  validForm.enableValidation();
-};
-
 initialCards.forEach((item) => addNewCard(item));
+
+const validEditForm = new FormValidator(formClasses, popupEditForm);
+const validAddForm = new FormValidator(formClasses, popupAddForm);
+
+validEditForm.enableValidation();
+validAddForm.enableValidation();
 
 editButton.addEventListener("click", function() {
   popupEnterName.value = profileName.textContent;
   popupEnterJob.value = profileJob.textContent;
-
+  validEditForm.clearError();
   popupOpen(popupEdit);
 });
 
@@ -133,7 +122,7 @@ closeEditButton.addEventListener("click", function() {popupClose(popupEdit);});
 
 addButton.addEventListener("click", function() {
   popupAddForm.reset();
-
+  validAddForm.clearError();
   popupOpen(popupAdd);
 });
 
@@ -152,7 +141,3 @@ popupAddForm.addEventListener("submit", function(evt) {
 });
 
 closeImageButton.addEventListener("click", function(){popupClose(popupFullImage)});
-
-valid(formClasses, popupEditForm);
-
-valid(formClasses, popupAddForm);

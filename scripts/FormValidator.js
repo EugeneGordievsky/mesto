@@ -1,3 +1,5 @@
+import {popupClose} from "./index.js";
+
 export default class FormValidator {
   constructor(allClasses, validForm) {
     this._validForm = validForm;
@@ -25,11 +27,23 @@ export default class FormValidator {
       input.addEventListener("input", () => {
         this._isValid(input);
         this._toggleButtonState();
-      })
+      });
     });
+    this._element.addEventListener(popupClose, () => this._clearError);
     this._element.addEventListener("submit", (evt) => {
       evt.preventDefault();
       this._disableButton();
+    });
+  };
+
+  clearError() {
+    const errors = Array.from(this._element.querySelectorAll(".popup__input_error"));
+    const inputs = Array.from(this._element.querySelectorAll(this._inputSelector));
+    errors.forEach(function(error) {
+      error.textContent = "";
+    });
+    inputs.forEach(function(input) {
+      input.classList.remove("popup__input_type_error");
     });
   };
 
@@ -62,7 +76,7 @@ export default class FormValidator {
   };
 
   _hasInvalidInput() {
-    const inputList = Array.from(this._element.querySelectorAll(this._inputSelector))
+    const inputList = Array.from(this._element.querySelectorAll(this._inputSelector));
     return inputList.some((input) => {
       return !input.validity.valid;
     });
