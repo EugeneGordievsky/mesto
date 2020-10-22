@@ -1,6 +1,11 @@
 import Card from "./Card.js";
 import FormValidator from "./FormValidator.js";
-export {popupFullImage, fullImageSrc, fullImageTitle, closeImageButton, popupOpen, popupClose};
+import PopupWithImage from "./PopupWithImage.js";
+import PopupWithForm from "./PopupWithForm.js";
+import UserInfo from "./UserInfo.js";
+
+export {popupFullImage, fullImageSrc, fullImageTitle, closeImageButton, closeAddButton, closeEditButton, imagePopup,
+popupEnterName, popupEnterJob, profileName, profileJob};
 const editButton = document.querySelector(".profile__edit-button");
 const popupEdit = document.querySelector(".popup_edit");
 const popupAdd = document.querySelector(".popup_add-card");
@@ -53,57 +58,38 @@ const initialCards = [
       link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ];
-
-function popupOpen(popup) {
-  popup.classList.add("popup_opened");
-  popup.addEventListener("click", closeOnOverlay);
-  document.addEventListener("keyup", closeOnEsc);
-};
-
-function popupClose(popup) {
-  popup.removeEventListener("click", closeOnOverlay);
-  document.removeEventListener("keyup", closeOnEsc);
-  popup.classList.remove("popup_opened");
-};
-
-function closeOnEsc(evt) {
-  const openPopup = document.querySelector(".popup_opened");
-  if (evt.key === "Escape") {
-    evt.preventDefault();
-    popupClose(openPopup);
-  };
-};
-
-function closeOnOverlay(evt) {
-  const openPopup = document.querySelector(".popup_opened");
-  if (evt.target.classList.contains("popup")) {
-    popupClose(openPopup);
-  };
-};
-
-function changeProfileInfo(evt) {
-  evt.preventDefault();
-
-  const name = popupEnterName.value;
-  const job = popupEnterJob.value;
-
-  profileName.textContent = name;
-  profileJob.textContent = job;
-
-  popupClose(popupEdit);
-};
-
+const imagePopup = new PopupWithImage(popupFullImage);
 function addCard(container, element) {
   container.prepend(element);
 };
 
 function addNewCard(data) {
-  const newCard = new Card("#card", data);
+  const newCard = new Card("#card", data, () => imagePopup.open(data.name, data.link));
   const newCardElement = newCard.generateCard();
   addCard(listElements, newCardElement);
 }
 
 initialCards.forEach((item) => addNewCard(item));
+
+const userInfo = new UserInfo(profileName, profileJob);
+const editPopup = new PopupWithForm(popupEdit, (evt) => {
+  evt.preventDefault();
+  userInfo.setUserInfo();
+  editPopup.close();
+});
+const addCardPopup = new PopupWithForm(popupAdd, (evt) => {
+  evt.preventDefault();
+  addNewCard({
+    name: inputTitle.value,
+    link: inputSrc.value,
+  });
+  addCardPopup.close();
+});
+
+imagePopup.setEventListeners();
+editPopup.setEventListeners();
+addCardPopup.setEventListeners();
+
 
 const validEditForm = new FormValidator(formClasses, popupEditForm);
 const validAddForm = new FormValidator(formClasses, popupAddForm);
@@ -111,33 +97,14 @@ const validAddForm = new FormValidator(formClasses, popupAddForm);
 validEditForm.enableValidation();
 validAddForm.enableValidation();
 
-editButton.addEventListener("click", function() {
-  popupEnterName.value = profileName.textContent;
-  popupEnterJob.value = profileJob.textContent;
+editButton.addEventListener("click", () => {
+  userInfo.getUserInfo();
   validEditForm.clearError();
-  popupOpen(popupEdit);
+  editPopup.open();
 });
 
-closeEditButton.addEventListener("click", function() {popupClose(popupEdit);});
-
-addButton.addEventListener("click", function() {
+addButton.addEventListener("click", () => {
   popupAddForm.reset();
   validAddForm.clearError();
-  popupOpen(popupAdd);
+  addCardPopup.open();
 });
-
-closeAddButton.addEventListener("click", function(){popupClose(popupAdd)});
-
-popupEditForm.addEventListener("submit", changeProfileInfo);
-
-popupAddForm.addEventListener("submit", function(evt) {
-  evt.preventDefault();
-
-  addNewCard({
-    name: inputTitle.value,
-    link: inputSrc.value,
-  });
-  popupClose(popupAdd);
-});
-
-closeImageButton.addEventListener("click", function(){popupClose(popupFullImage)});

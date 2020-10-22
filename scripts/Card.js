@@ -1,17 +1,19 @@
-import {popupFullImage, fullImageSrc, fullImageTitle, closeImageButton, popupOpen, popupClose} from "./index.js";
+import {popupFullImage, fullImageSrc, fullImageTitle, closeImageButton} from "./index.js";
+
 export default class Card {
-  constructor(cardSelector, data) {
+  constructor(cardSelector, data, handleCardClick) {
     this._cardSelector = cardSelector;
     this._name = data.name;
     this._link = data.link;
+    this._handleCardClick = handleCardClick;
   };
 
-  _getTemplate() {
+  _getTemplate = () => {
     const newCard = document.querySelector(this._cardSelector).content.cloneNode(true);
     return newCard;
   };
 
-  generateCard() {
+  generateCard = () => {
     this._element = this._getTemplate();
     this._elementImage = this._element.querySelector(".element__image");
     this._setEventListeners();
@@ -23,22 +25,21 @@ export default class Card {
     return this._element;
   };
 
-  _handleOpenPopup() {
-    fullImageTitle.textContent = this._name;
+  _handleOpenPopup = () => {
+    /*fullImageTitle.textContent = this._name;
     fullImageSrc.src = this._link;
 
-    popupOpen(popupFullImage);
+    imagePopup.open(this._name, this._link);*/
   };
 
-  _handleClosePopup() {
+  _handleClosePopup = () => {
     fullImageTitle.textContent = "";
     fullImageSrc.src = "";
 
-    popupClose(popupFullImage);
   };
 
-  _setEventListeners() {
-    this._elementImage.addEventListener("click", () => this._handleOpenPopup());
+  _setEventListeners = () => {
+    this._elementImage.addEventListener("click", this._handleCardClick);
     closeImageButton.addEventListener("click", () => this._handleClosePopup());
     this._element.querySelector(".element__like").addEventListener("click", function(evt) {
       evt.target.classList.toggle("element__like_active");
