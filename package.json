@@ -1,0 +1,23 @@
+{
+  "name": "mesto",
+  "version": "1.0.0",
+  "description": "## Описание",
+  "main": "index.js",
+  "scripts": {
+    "build": "rm -rf dist && webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EugeneGordievsky/mesto.git"
+  },
+  "author": "Eugene Gordievskiy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EugeneGordievsky/mesto/issues"
+  },
+  "homepage": "https://github.com/EugeneGordievsky/mesto#readme",
+  "devDependencies": {
+    "webpack": "^5.2.0",
+    "webpack-cli": "^4.1.0"
+  }
+}

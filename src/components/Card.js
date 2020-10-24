@@ -1,4 +1,4 @@
-import {popupFullImage, fullImageSrc, fullImageTitle, closeImageButton} from "../utils/constants.js";
+import {fullImageSrc, fullImageTitle, closeImageButton} from "../utils/constants.js";
 
 export default class Card {
   constructor(cardSelector, data, handleCardClick) {
