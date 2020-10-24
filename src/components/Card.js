@@ -1,4 +1,4 @@
-import {popupFullImage, fullImageSrc, fullImageTitle, closeImageButton} from "./index.js";
+import {popupFullImage, fullImageSrc, fullImageTitle, closeImageButton} from "../utils/constants.js";
 
 export default class Card {
   constructor(cardSelector, data, handleCardClick) {
@@ -23,13 +23,6 @@ export default class Card {
     this._element.querySelector(".element__title").textContent = this._name;
 
     return this._element;
-  };
-
-  _handleOpenPopup = () => {
-    /*fullImageTitle.textContent = this._name;
-    fullImageSrc.src = this._link;
-
-    imagePopup.open(this._name, this._link);*/
   };
 
   _handleClosePopup = () => {

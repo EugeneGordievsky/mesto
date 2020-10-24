@@ -1,4 +1,4 @@
-import {popupEnterJob, popupEnterName} from "./index.js";
+import {popupEnterJob, popupEnterName} from "../utils/constants.js";
 
 export default class UserInfo {
   constructor(name, job) {
