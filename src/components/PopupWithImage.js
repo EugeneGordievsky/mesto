@@ -6,7 +6,7 @@ export default class PopupWithImage extends Popup {
     super(popup);
   };
 
-  open = (data) => {
+  open(data) {
     document.addEventListener("keyup", this._handleEscClose);
     this._popup.addEventListener("click", this._handleOverlayClose);
     fullImageSrc.src = data.link;

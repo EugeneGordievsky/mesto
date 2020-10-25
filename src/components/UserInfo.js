@@ -6,12 +6,12 @@ export default class UserInfo {
     this._job = job;
   };
 
-  setUserInfo = () => {
+  setUserInfo() {
     this._name.textContent = popupEnterName.value;
     this._job.textContent = popupEnterJob.value;
   };
 
-  getUserInfo = () => {
+  getUserInfo() {
 
     popupEnterName.value = this._name.textContent;
     popupEnterJob.value = this._job.textContent;

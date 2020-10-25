@@ -8,12 +8,12 @@ export default class Card {
     this._handleCardClick = handleCardClick;
   };
 
-  _getTemplate = () => {
+  _getTemplate() {
     const newCard = document.querySelector(this._cardSelector).content.cloneNode(true);
     return newCard;
   };
 
-  generateCard = () => {
+  generateCard() {
     this._element = this._getTemplate();
     this._elementImage = this._element.querySelector(".element__image");
     this._setEventListeners();
@@ -25,13 +25,13 @@ export default class Card {
     return this._element;
   };
 
-  _handleClosePopup = () => {
+  _handleClosePopup() {
     fullImageTitle.textContent = "";
     fullImageSrc.src = "";
 
   };
 
-  _setEventListeners = () => {
+  _setEventListeners() {
     this._elementImage.addEventListener("click", this._handleCardClick);
     closeImageButton.addEventListener("click", () => this._handleClosePopup());
     this._element.querySelector(".element__like").addEventListener("click", function(evt) {
