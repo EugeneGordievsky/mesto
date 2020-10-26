@@ -1,20 +1,19 @@
-import {popupEnterJob, popupEnterName} from "../utils/constants.js";
-
 export default class UserInfo {
   constructor(name, job) {
     this._name = name;
     this._job = job;
   };
 
-  setUserInfo() {
-    this._name.textContent = popupEnterName.value;
-    this._job.textContent = popupEnterJob.value;
+  setUserInfo(info) {
+    this._name.textContent = info.name;
+    this._job.textContent = info.job;
   };
 
   getUserInfo() {
-
-    popupEnterName.value = this._name.textContent;
-    popupEnterJob.value = this._job.textContent;
+    return {
+    userName: this._name.textContent,
+    userJob: this._job.textContent,
+    };
   };
 }
 

@@ -5,37 +5,30 @@ import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 import { editButton, popupEdit, popupAdd, popupFullImage, addButton, popupEditForm, popupAddForm,
-profileName, profileJob, inputTitle, inputSrc, formClasses, initialCards} from "../utils/constants.js";
+profileName, profileJob, inputTitle, inputSrc, formClasses, initialCards, fullImageSrc, fullImageTitle,
+popupEnterJob, popupEnterName, closeImageButton} from "../utils/constants.js";
 import { Section } from "../components/Section.js";
 
-const imagePopup = new PopupWithImage(popupFullImage);
+const newCard = (item) => {
+  const card = new Card("#card", item, () => imagePopup.open(item), closeImageButton);
+  const newCardElement = card.generateCard();
+  return newCardElement;
+};
+
+const imagePopup = new PopupWithImage(popupFullImage, fullImageSrc, fullImageTitle);
 const validEditForm = new FormValidator(formClasses, popupEditForm);
 const validAddForm = new FormValidator(formClasses, popupAddForm);
+const userInfo = new UserInfo(profileName, profileJob);
 const initCard = new Section({
   items: initialCards,
-  renderer: (item) => {
-    const newCard = new Card("#card", item, () => imagePopup.open(item));
-    const newCardElement = newCard.generateCard();
-
-    initCard.addItem(newCardElement);
-  }},".elements");
-const userInfo = new UserInfo(profileName, profileJob);
-const editPopup = new PopupWithForm(popupEdit, (evt) => {
-  evt.preventDefault();
-  userInfo.setUserInfo();
+  renderer: (item) => initCard.addItem(newCard(item), initialCards)},
+  ".elements");
+const editPopup = new PopupWithForm(popupEdit, (item) => {
+  userInfo.setUserInfo(item);
   editPopup.close();
 });
-const addCardPopup = new PopupWithForm(popupAdd, (evt) => {
-  evt.preventDefault();
-  const item = {
-    name: inputTitle.value,
-    link: inputSrc.value,
-  };
-
-  const newCard = new Card("#card", item, () => imagePopup.open(item));
-  const newCardElement = newCard.generateCard();
-
-  initCard.addItem(newCardElement);
+const addCardPopup = new PopupWithForm(popupAdd, (item) => {
+  initCard.addItem(newCard(item));
 
   addCardPopup.close();
 });
@@ -50,7 +43,9 @@ validEditForm.enableValidation();
 validAddForm.enableValidation();
 
 editButton.addEventListener("click", () => {
-  userInfo.getUserInfo();
+  const user = userInfo.getUserInfo();
+  popupEnterName.value = user.userName;
+  popupEnterJob.value = user.userJob;
   validEditForm.clearError();
   editPopup.open();
 });

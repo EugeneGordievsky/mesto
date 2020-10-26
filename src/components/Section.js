@@ -9,7 +9,11 @@ export class Section {
     this._items.forEach((item) => this._renderer(item));
   };
 
-  addItem(element) {
+  addItem(element, arr) {
+    if (Array.isArray(arr)) {
+      this._container.append(element);
+    } else {
     this._container.prepend(element);
+    }
   };
 }
