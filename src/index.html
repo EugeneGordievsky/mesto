@@ -12,11 +12,12 @@
     </header>
     <main class="content">
       <section class="profile">
-        <img src="images/avatar.jpg" class="profile__avatar" alt="Аватар профиля">
+        <img class="profile__avatar" alt="Аватар профиля">
+        <button class="profile__avatar-button" type="button"></button>
         <div class="profile__info">
-          <h1 class="profile__name">Жак-Ив Кусто</h1>
+          <h1 class="profile__name"></h1>
           <button class="profile__edit-button" type="button"></button>
-          <p class="profile__job">Исследователь океана</p>
+          <p class="profile__job"></p>
         </div>
         <button class="add-button" type="button"></button>
       </section>
@@ -34,7 +35,10 @@
       <img class="element__image">
       <div class="element__info">
         <h2 class="element__title"></h2>
-        <button class="element__like" type="button"></button>
+        <div class="element__like">
+          <button class="element__like-button" type="button"></button>
+          <p class="element__like-counter"></p>
+        </div>
       </div>
     </li>
   </template>
@@ -77,6 +81,29 @@
       <button class="popup__close-button popup__close-button_image" type="button"></button>
       <img class="popup__card-image" alt="Картинка">
       <h2 class="popup__card-title"></h2>
+    </div>
+  </section>
+  <section class="popup popup_delete-card">
+    <div class="popup__container">
+      <button class="popup__close-button popup__close-button_delete" type="button"></button>
+      <h3 class="popup__header">
+        Вы уверены?
+      </h3>
+      <button type="submit" class="popup__save-button">Да</button>
+    </div>
+  </section>
+  <section class="popup popup__edit-avatar">
+    <div class="popup__container">
+      <button class="popup__close-button popup__close-button_edit-avatar" type="button"></button>
+      <h3 class="popup__header">
+        Обновить аватар
+      </h3>
+      <form class="popup__form popup__form_add-card" name="card-form" action="index.html" method="GET" novalidate>
+        <input id="input-src" type="url" placeholder="Ссылка на картинку" class="popup__input popup__input_src"
+        name="link" required>
+        <span id="input-src-error" class="popup__input_error"></span>
+        <button type="submit" class="popup__save-button">Сохранить</button>
+      </form>
     </div>
   </section>
 </body>
