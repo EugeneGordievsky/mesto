@@ -6,10 +6,10 @@ import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 import Api from "../components/Api.js";
+import Section from "../components/Section.js";
 import { editButton, popupEdit, popupAdd, popupFullImage, addButton, popupEditForm, popupAddForm,
 profileName, profileJob, formClasses, fullImageSrc, fullImageTitle, avatarButton, popupDeleteCard,
 popupEnterJob, popupEnterName, profileAvatar, popupEditAvatar, popupAvatarForm, elements} from "../utils/constants.js";
-import { Section } from "../components/Section.js";
 
 const api = new Api({
   baseUrl: "https://mesto.nomoreparties.co/v1/cohort-17",
@@ -19,7 +19,7 @@ const api = new Api({
   }
 });
 
-const newCard = (item) => {
+const createNewCard = (item) => {
   const card = new Card("#card",
   item,
   () => imagePopup.open(item),
@@ -27,19 +27,19 @@ const newCard = (item) => {
   (card, cardId) => {
     deleteCardPopup.open(card, cardId);
   },
-  (id, counter, activeToggleFunc) => {
+  (id) => {
     api.getLikeFunc(id)
     .then((res) => {
-      activeToggleFunc;
-      counter.textContent = res.likes.length;
+      card.setLikesInfo(res);
     })
+    .catch((err) => console.log(err));
   },
-  (id, counter, activeToggleFunc) => {
+  (id) => {
     api.deleteLikeFunc(id)
     .then((res) => {
-      activeToggleFunc;
-      counter.textContent = res.likes.length;
+      card.setLikesInfo(res)
     })
+    .catch((err) => console.log(err));;
   });
   const newCardElement = card.generateCard();
   return newCardElement;
@@ -61,6 +61,7 @@ const deleteCardPopup = new PopupWithDelete(popupDeleteCard,
     deleteCardPopup.close();
     api.isLoading(button);
   })
+  .catch((err) => console.log(err));
 });
 const editPopup = new PopupWithForm(popupEdit, (item, button) => {
   api.isLoading(button, true);
@@ -69,7 +70,8 @@ const editPopup = new PopupWithForm(popupEdit, (item, button) => {
     userInfo.setUserInfo(res);
     editPopup.close();
     api.isLoading(button);
-  });
+  })
+  .catch((err) => console.log(err));
 });
 const avatarPopup = new PopupWithForm(popupEditAvatar, (item, button) => {
   api.isLoading(button, true);
@@ -78,17 +80,19 @@ const avatarPopup = new PopupWithForm(popupEditAvatar, (item, button) => {
     userInfo.setAvatar(res);
     avatarPopup.close();
     api.isLoading(button);
-  });
+  })
+  .catch((err) => console.log(err));
 });
 
 const addCardPopup = new PopupWithForm(popupAdd, (item, button) => {
   api.isLoading(button, true);
   api.addNewCard(item)
   .then((res) => {
-    elements.prepend(newCard(res));
+    elements.prepend(createNewCard(res));
     addCardPopup.close();
     api.isLoading(button);
-  });
+  })
+  .catch((err) => console.log(err));
 });
 
 imagePopup.setEventListeners();
@@ -123,13 +127,15 @@ api.getInitialCards()
 .then((res) => {
   const initCard = new Section({
     items: res,
-    renderer: (item) => initCard.addItem(newCard(item))},
+    renderer: (item) => initCard.addItem(createNewCard(item))},
     ".elements");
   initCard.renderItems();
-});
+})
+.catch((err) => console.log(err));
 
 api.getUserInfo()
 .then((res) => {
   userInfo.setUserInfo(res);
   userInfo.setAvatar(res);
 })
+.catch((err) => console.log(err));

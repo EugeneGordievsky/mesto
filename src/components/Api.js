@@ -3,22 +3,18 @@ export default class Api {
     this._options = options;
   }
 
+  _checkResponse(result) {
+    if (result.ok) {
+      return result.json();
+    }
+    return Promise.reject(`Произошла ошибка: ${result.status}:${result.statusText}`)
+  }
+
   getUserInfo() {
     return fetch(this._options.baseUrl + "/users/me", {
       headers: this._options.headers
     })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Произошла ошибка: ${res.status}:${res.statusText}`)
-    })
-    .then((res) => {
-      return res;
-    })
-    .catch((err) => {
-      console.log(err);
-    })
+    .then((res) => this._checkResponse(res))
   };
 
   setUserInfo(item) {
@@ -30,18 +26,7 @@ export default class Api {
         about: item.job
       })
     })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Произошла ошибка: ${res.status}:${res.statusText}`)
-    })
-    .then((res) => {
-      return res;
-    })
-    .catch((err) => {
-      console.log(err);
-    })
+    .then((res) => this._checkResponse(res))
   };
 
   setAvatar(item) {
@@ -52,36 +37,14 @@ export default class Api {
         avatar: item.link
       })
     })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Произошла ошибка: ${res.status}:${res.statusText}`)
-    })
-    .then((res) => {
-      return res;
-    })
-    .catch((err) => {
-      console.log(err);
-    })
+    .then((res) => this._checkResponse(res))
   };
 
   getInitialCards() {
     return fetch(this._options.baseUrl + "/cards", {
       headers: this._options.headers
     })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Произошла ошибка: ${res.status}:${res.statusText}`)
-    })
-    .then((res) => {
-      return res;
-    })
-    .catch((err) => {
-      console.log(err);
-    })
+    .then((res) => this._checkResponse(res))
   };
 
   addNewCard(info) {
@@ -93,18 +56,7 @@ export default class Api {
         link: info.link
       })
     })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Произошла ошибка: ${res.status}:${res.statusText}`)
-    })
-    .then((res) => {
-      return res;
-    })
-    .catch((err) => {
-      console.log(err);
-    })
+    .then((res) => this._checkResponse(res))
   };
 
   deleteCard(id) {
@@ -112,18 +64,7 @@ export default class Api {
       method: "DELETE",
       headers: this._options.headers
     })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Произошла ошибка: ${res.status}:${res.statusText}`)
-    })
-    .then((res) => {
-      return res;
-    })
-    .catch((err) => {
-      console.log(err);
-    })
+    .then((res) => this._checkResponse(res))
   };
 
   getLikeFunc(id) {
@@ -131,18 +72,7 @@ export default class Api {
       method: "PUT",
       headers: this._options.headers
     })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Произошла ошибка: ${res.status}:${res.statusText}`)
-    })
-    .then((res) => {
-      return res;
-    })
-    .catch((err) => {
-      console.log(err);
-    })
+    .then((res) => this._checkResponse(res))
   };
 
   deleteLikeFunc(id) {
@@ -150,18 +80,7 @@ export default class Api {
       method: "DELETE",
       headers: this._options.headers
     })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Произошла ошибка: ${res.status}:${res.statusText}`)
-    })
-    .then((res) => {
-      return res;
-    })
-    .catch((err) => {
-      console.log(err);
-    })
+    .then((res) => this._checkResponse(res))
   };
 
   isLoading(button, isLoad) {

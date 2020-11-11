@@ -31,9 +31,9 @@ export default class Card {
     this._elementImage.addEventListener("click", this._handleCardClick);
     this._likeButton.addEventListener("click", () => {
       if (this._likeButton.classList.contains("element__like-button_active")) {
-        this._delLike(this._cardId, this._likeCounter, this._likeActiveToggle());
+        this._delLike(this._cardId);
       } else {
-        this._getLike(this._cardId, this._likeCounter, this._likeActiveToggle());
+        this._getLike(this._cardId);
       }
 
     });
@@ -45,6 +45,12 @@ export default class Card {
       })
     }
   };
+
+  setLikesInfo(data) {
+    this._likes = data.likes;
+    this._likeCounter.textContent = this._likes.length;
+    this._likeActiveToggle();
+  }
 
   generateCard() {
     this._element = this._getTemplate();
