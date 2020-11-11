@@ -45,13 +45,13 @@ const newCard = (item) => {
   return newCardElement;
 };
 
-
-
-const imagePopup = new PopupWithImage(popupFullImage, fullImageSrc, fullImageTitle);
 const validEditForm = new FormValidator(formClasses, popupEditForm);
 const validAddForm = new FormValidator(formClasses, popupAddForm);
 const validAvatarForm = new FormValidator(formClasses, popupAvatarForm);
+
 const userInfo = new UserInfo(profileName, profileJob, profileAvatar);
+
+const imagePopup = new PopupWithImage(popupFullImage, fullImageSrc, fullImageTitle);
 const deleteCardPopup = new PopupWithDelete(popupDeleteCard,
   (cardElement, cardId, button) => {
   api.isLoading(button, true);
@@ -89,9 +89,7 @@ const addCardPopup = new PopupWithForm(popupAdd, (item, button) => {
     addCardPopup.close();
     api.isLoading(button);
   });
-
 });
-
 
 imagePopup.setEventListeners();
 editPopup.setEventListeners();
@@ -117,6 +115,7 @@ addButton.addEventListener("click", () => {
 });
 
 avatarButton.addEventListener("click", () => {
+  validAvatarForm.clearError();
   avatarPopup.open();
 })
 
