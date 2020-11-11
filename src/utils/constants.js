@@ -1,6 +1,6 @@
-export {editButton, popupEdit, popupAdd, popupFullImage, addButton, closeImageButton,
+export {editButton, popupEdit, popupAdd, popupFullImage, addButton, closeImageButton, elements,
 popupEnterName, popupEnterJob, popupEditForm, popupAddForm, profileJob, profileName, profileAvatar, inputSrc, inputTitle,
-fullImageSrc, fullImageTitle, formClasses, popupEditAvatar, avatarButton, popupAvatarForm};
+fullImageSrc, fullImageTitle, formClasses, popupEditAvatar, avatarButton, popupAvatarForm, popupDeleteCard};
 
 const avatarButton = document.querySelector(".profile__avatar-button");
 const editButton = document.querySelector(".profile__edit-button");
@@ -11,6 +11,7 @@ const popupEditAvatar = document.querySelector(".popup__edit-avatar");
 const popupEdit = document.querySelector(".popup_edit");
 const popupAdd = document.querySelector(".popup_add-card");
 const popupFullImage = document.querySelector(".popup_full-image");
+const popupDeleteCard = document.querySelector(".popup_delete-card");
 
 const popupEditForm = popupEdit.querySelector(".popup__form");
 const popupAddForm = popupAdd.querySelector(".popup__form");
@@ -28,6 +29,8 @@ const inputSrc = document.querySelector(".popup__input_src");
 
 const fullImageSrc = document.querySelector(".popup__card-image");
 const fullImageTitle = document.querySelector(".popup__card-title");
+
+const elements = document.querySelector(".elements");
 
 const formClasses = {
   inputSelector: ".popup__input",
