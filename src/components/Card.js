@@ -58,7 +58,7 @@ export default class Card {
     this._likeCounter = this._element.querySelector(".element__like-counter");
     this._setEventListeners();
 
-    this._likes.forEach((item) => {
+    this._likes.some((item) => {
       if (item._id === this._myId) {
         this._likeButton.classList.add("element__like-button_active");
       } else {
